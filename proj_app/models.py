@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, null=True)
@@ -8,8 +9,8 @@ class Tag(models.Model):
     suggested_by = models.CharField(max_length=100, null=True)
 
     class Meta:
-        verbose_name = 'Tag'
-        verbose_name_plural = 'Tags'
+        verbose_name = _('Tag')
+        verbose_name_plural = _('Tags')
 
     def __str__(self) -> str:
         return self.name
@@ -34,8 +35,8 @@ class Community(models.Model):
     created_on = models.DateField(auto_now_add=True)
 
     class Meta:
-        verbose_name = 'Community'
-        verbose_name_plural = 'Communities'
+        verbose_name = _('Community')
+        verbose_name_plural = _('Communities')
 
     def __str__(self) -> str:
         return self.name
@@ -53,16 +54,16 @@ class Community(models.Model):
 
 
 TYPE_CHOICES = (
-    ('Individual', 'Individual'),
-    ('Group', 'Group'),
-    ('Internship', 'Internship'),
-    ('Hackathon', 'Hackathon'),
-    ('Company', 'Company'),
+    (_('Individual'), _('Individual')),
+    (_('Group'), _('Group')),
+    (_('Internship'), _('Internship')),
+    (_('Hackathon'), _('Hackathon')),
+    (_('Company'), _('Company'))
 )
 
 VIEW_STATUS_CHOICES = (
-    ('Public', 'Public'),
-    ('Private', 'Private')
+    (_('Public'), _('Public')),
+    (_('Private'), _('Private'))
 )
 
 class Project(models.Model):
@@ -88,8 +89,8 @@ class Project(models.Model):
     last_updated = models.DateField(auto_now=True)
 
     class Meta:
-        verbose_name = 'Project'
-        verbose_name_plural = 'Projects'
+        verbose_name = _('Project')
+        verbose_name_plural = _('Projects')
 
     def __str__(self) -> str:
         return self.name
@@ -127,8 +128,8 @@ class ProjectDescription(models.Model):
     footer = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Project Description'
-        verbose_name_plural = 'Project Descriptions'
+        verbose_name = _('Project Description')
+        verbose_name_plural = _('Project Descriptions')
 
     def __str__(self) -> str:
         return self.heading
@@ -159,8 +160,8 @@ class ProjectImages(models.Model):
     desc5 = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Project Description'
-        verbose_name_plural = 'Project Descriptions'
+        verbose_name = _('Project Image')
+        verbose_name_plural = _('Project Images')
 
     def __str__(self) -> str:
         return self.heading

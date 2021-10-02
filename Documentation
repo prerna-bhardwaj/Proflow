@@ -1,0 +1,29 @@
+TODO :
+1. Setup API Endpoints
+2. Define serializers for all models
+3. Declare APIViews in views.py
+4. Add + Test basic functionality
+5. Add Authentication - Basic + Token/Session
+
+Extras : 
+1. Add testing
+2. Automate testing
+3. Add translation at all possible text fields
+4. Add verbose name in all fields
+
+Functionality :
+- Login
+- Register
+- Logout
+- View Profile
+- View Individual Project
+- Add Tags
+- Like a project
+- Follow a person/community
+- Add/Update new project to profile 
+- Edit profile
+- View Notifications
+- View Communities / Dashboard
+- View Specific Community
+- View a particular Project
+- 

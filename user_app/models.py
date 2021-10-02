@@ -2,14 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import base
 from django.db.models.deletion import CASCADE
-from django.db.models.expressions import Case
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
 GENDER_CHOICES = (
-    ('Male', 'Male'),
-    ('Female', 'Female'),
-    ('Others', 'Others')
+    (_('Male'), _('Male')),
+    (_('Female'), _('Female')),
+    (_('Others'), _('Others'))
 )
 
 class UserProfile(models.Model):
@@ -32,8 +32,8 @@ class UserProfile(models.Model):
     followers = models.JSONField(default=list)                  # List of people following you
 
     class Meta:
-        verbose_name = 'UserProfile'
-        verbose_name_plural = 'User Profile'
+        verbose_name = _('UserProfile')
+        verbose_name_plural = _('User Profile')
 
     def __str__(self) -> str:
         return self.user
@@ -62,20 +62,19 @@ class UserProfile(models.Model):
 
 
 NOTIFICATION_TYPE = (
-    ('FOLLOWING', 'FOLLOWING'),
-    ('COMMENT', 'COMMENT'),
-    ('TAG', 'TAG'),
-    ('PROFILE VIEW', 'PROFILW VIEW'),
-    ('PROJECT VIEW', 'PROJECT VIEW')
+    (_('FOLLOWING'), _('FOLLOWING')),
+    (_('COMMENT'), _('COMMENT')),
+    (_('TAG'), _('TAG')),
+    (_('PROFILE VIEW'), _('PROFILE VIEW'))
 )
 
 STATUS_CHOICES = (
-    ('ASSIGNED', 'ASSIGNED'),
-    ('VIEWED', 'VIEWED')
+    (_('ASSIGNED'), _('ASSIGNED')),
+    (_('VIEWED'), _('VIEWED'))
 )
 
 class Notifications(models.Model):
-    username = models.OneToOneField(UserProfile, on_delete=CASCADE)
+    user = models.ForeignKey(User, on_delete=CASCADE)
     creation_date = models.DateField()
     creation_time = models.TimeField()
     type = models.CharField(max_length=100, choices=NOTIFICATION_TYPE, null=True)
@@ -84,15 +83,15 @@ class Notifications(models.Model):
     creator = models.CharField(max_length=100, null=True)
 
     class Meta:
-        verbose_name = 'Notification'
-        verbose_name_plural = 'Notifications'
+        verbose_name = _('Notification')
+        verbose_name_plural = _('Notifications')
 
     def __str__(self) -> str:
         return self.description
     
     def to_dict(self):
         return {
-            'username' : self.username,
+            'user' : self.user,
             'creation_date' : self.creation_date,
             'creation_time' : self.creation_time,
             'type' : self.type,
@@ -102,19 +101,19 @@ class Notifications(models.Model):
         }
 
 CATEGORY_CHOICES = (
-    ('INTERVIEW', 'INTERVIEW'),
-    ('PROJECT', 'PROJECT')
+    (_('INTERVIEW'), _('INTERVIEW')),
+    (_('PROJECT'), _('PROJECT'))
 )
 
 class Cart(models.Model):
     category = models.CharField(max_length=100, choices=CATEGORY_CHOICES, null=True)
     itemId = models.CharField(max_length=30, null=True)         # can be id of project or interview experience
-    username = models.CharField(max_length=100, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     added_date = models.DateField()
 
     class Meta:
-        verbose_name = 'Cart'
-        verbose_name_plural = 'Cart'
+        verbose_name = _('Cart')
+        verbose_name_plural = _('Cart')
 
     def __str__(self) -> str:
         return self.itemId
@@ -123,6 +122,6 @@ class Cart(models.Model):
         return {
             'category' : self.category,
             'itemId' : self.itemId,
-            'username' : self.username,
+            'user' : self.user,
             'added_date' : self.added_date,
         } 
